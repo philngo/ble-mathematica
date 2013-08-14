@@ -1,0 +1,438 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     16038,        429]
+NotebookOptionsPosition[     13649,        346]
+NotebookOutlinePosition[     14040,        363]
+CellTagsIndexPosition[     13997,        360]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Bluetooth Smart/LE/4.0", "Title",
+ CellChangeTimes->{{3.58377391853356*^9, 3.583773939362009*^9}, {
+  3.584465792371161*^9, 3.584465799697509*^9}, {3.584466053094301*^9, 
+  3.584466055948757*^9}, {3.584696442897644*^9, 3.584696463088616*^9}, {
+  3.5848142513613167`*^9, 3.584814276475658*^9}}],
+
+Cell["\<\
+Connecting devices to Mathematica\
+\>", "Subtitle",
+ CellChangeTimes->{{3.5837739501801157`*^9, 3.5837739644348907`*^9}, {
+  3.584814261863492*^9, 3.584814316685473*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Description", "Section",
+ CellChangeTimes->{{3.584814417420492*^9, 3.584814418970772*^9}}],
+
+Cell[TextData[{
+ "This notebook demonstrates how ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " can import data from your Bluetooth Smart Device and perform analysis. \
+Additionally, you can use ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " to send commands back to your device."
+}], "Text",
+ CellChangeTimes->{{3.584814430882222*^9, 3.584814463017496*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Loading and Initialization", "Section",
+ CellChangeTimes->{{3.584814471595306*^9, 3.584814477376965*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Load and initialize the package library:", "Text",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.},
+ CellChangeTimes->{{3.584814481169245*^9, 3.584814529864553*^9}, 
+   3.584968621909226*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"AppendTo", "[", 
+   RowBox[{"$Path", ",", 
+    RowBox[{"NotebookDirectory", "[", "]"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"<<", "BLEAutoConnect`"}]}], "Input",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.},
+ InitializationCell->True,
+ CellChangeTimes->{3.584968621909376*^9}]
+}, Closed]],
+
+Cell[BoxData[
+ RowBox[{"LoadBLELibrary", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.5848145331748543`*^9, 3.5848145481690817`*^9}, {
+  3.5848145961911573`*^9, 3.584814622493981*^9}, {3.584957662226907*^9, 
+  3.5849576644649267`*^9}, {3.5849686031280203`*^9, 3.5849686051703463`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Directions", "Section",
+ CellChangeTimes->{{3.5837739845791683`*^9, 3.5837740075204268`*^9}, {
+  3.58377480872192*^9, 3.583774818889805*^9}, {3.584465842768937*^9, 
+  3.584465846536111*^9}, {3.584814675741208*^9, 3.58481467697971*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Before you begin", "Subsection",
+ CellChangeTimes->{{3.5837742703311987`*^9, 3.5837742761130466`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Verify that your Bluetooth hardware and peripheral device are both on and \
+within 3 meters of each other..\
+\>", "Item",
+ CellChangeTimes->{{3.583774066487896*^9, 3.583774083566358*^9}, {
+  3.583774126198497*^9, 3.5837741358944893`*^9}, {3.583774292329858*^9, 
+  3.583774371646212*^9}, {3.584814769692765*^9, 3.584814771244596*^9}, {
+  3.584814926902855*^9, 3.584814956903626*^9}}],
+
+Cell["\<\
+Verify that your device is not paired with any other devices (phones, etc).\
+\>", "Item",
+ CellChangeTimes->{{3.583774066487896*^9, 3.583774083566358*^9}, {
+   3.583774126198497*^9, 3.583774152755973*^9}, {3.5837741828595657`*^9, 
+   3.583774227213629*^9}, {3.583774418212977*^9, 3.583774447308073*^9}, {
+   3.5837746049841213`*^9, 3.583774625943413*^9}, {3.583774704446167*^9, 
+   3.58377473807725*^9}, {3.583774785540312*^9, 3.58377479721871*^9}, {
+   3.583775080027124*^9, 3.583775105978194*^9}, {3.584465825081674*^9, 
+   3.584465825673892*^9}, 3.584465868253758*^9, {3.584814728132173*^9, 
+   3.584814764172852*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["System Requirements", "Subsection"]], "Subsection",
+ CellChangeTimes->{{3.583774037729686*^9, 3.583774056110838*^9}, {
+  3.5837741865075827`*^9, 3.58377418832373*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["MacOSX 10.7 or above", "Item",
+ CellChangeTimes->{{3.583774066487896*^9, 3.583774083566358*^9}, {
+  3.583774126198497*^9, 3.5837741358944893`*^9}}],
+
+Cell["Bluetooth 4.0/LE/Smart receiver hardware", "Item",
+ CellChangeTimes->{{3.583774066487896*^9, 3.583774083566358*^9}, {
+  3.583774126198497*^9, 3.583774181211473*^9}, {3.584466199170258*^9, 
+  3.58446620178477*^9}}],
+
+Cell["\<\
+Any Bluetooth 4.0/LE/Smart peripheral device (this demonstration uses a Polar \
+H7 Heartrate Monitor\
+\>", "Item",
+ CellChangeTimes->{{3.583774066487896*^9, 3.583774083566358*^9}, {
+  3.583774126198497*^9, 3.583774152755973*^9}, {3.5837741828595657`*^9, 
+  3.583774227213629*^9}, {3.5837743008086767`*^9, 3.583774315456018*^9}, {
+  3.584121899028489*^9, 3.5841218994501247`*^9}, {3.584466209856192*^9, 
+  3.584466212576744*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Documentation", "Section",
+ CellChangeTimes->{{3.584814882730904*^9, 3.5848148855696774`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Functions", "Subsection"]], "Subsection",
+ CellChangeTimes->{{3.583774037729686*^9, 3.583774056110838*^9}, {
+  3.5837741865075827`*^9, 3.58377418832373*^9}, {3.5848149618322353`*^9, 
+  3.584814962615426*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ StyleBox["BLEDiscover[seconds]", "Input"],
+ " discovers devices in the area with an optional timelimit. Default 4 \
+seconds."
+}], "Item",
+ CellChangeTimes->{{3.583774066487896*^9, 3.583774083566358*^9}, {
+   3.583774126198497*^9, 3.5837741358944893`*^9}, {3.584814972547379*^9, 
+   3.5848150365433683`*^9}, 3.584957670743752*^9}],
+
+Cell[TextData[{
+ StyleBox["BLEConnect[deviceName]", "Input"],
+ " connects to a device by its name. Device must already have been \
+discovered"
+}], "Item",
+ CellChangeTimes->{{3.583774066487896*^9, 3.583774083566358*^9}, {
+   3.583774126198497*^9, 3.583774181211473*^9}, {3.584466199170258*^9, 
+   3.58446620178477*^9}, {3.584815045451009*^9, 3.584815079134255*^9}, 
+   3.584957672968395*^9}],
+
+Cell[TextData[{
+ StyleBox["BLEDeviceData[deviceName]", "Input"],
+ " queries a device for all its data and interprets it. "
+}], "Item",
+ CellChangeTimes->{{3.583774066487896*^9, 3.583774083566358*^9}, {
+   3.583774126198497*^9, 3.583774152755973*^9}, {3.5837741828595657`*^9, 
+   3.583774227213629*^9}, {3.5837743008086767`*^9, 3.583774315456018*^9}, {
+   3.584121899028489*^9, 3.5841218994501247`*^9}, {3.584466209856192*^9, 
+   3.584466212576744*^9}, {3.584815088898299*^9, 3.584815139940466*^9}, 
+   3.584957674551655*^9}],
+
+Cell[TextData[{
+ StyleBox["BLEDeviceRawData[deviceName]", "Input"],
+ " queries a device for all its data and leaves it in raw form (useful for \
+debugging)."
+}], "Item",
+ CellChangeTimes->{{3.583774066487896*^9, 3.583774083566358*^9}, {
+   3.583774126198497*^9, 3.583774152755973*^9}, {3.5837741828595657`*^9, 
+   3.583774227213629*^9}, {3.5837743008086767`*^9, 3.583774315456018*^9}, {
+   3.584121899028489*^9, 3.5841218994501247`*^9}, {3.584466209856192*^9, 
+   3.584466212576744*^9}, {3.584815088898299*^9, 3.584815161145385*^9}, 
+   3.584957676527586*^9}],
+
+Cell[TextData[{
+ StyleBox["BLEDeviceInformation[deviceName]", "Input"],
+ " returns a structure containing all information ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " has learned about the device and its services.  "
+}], "Item",
+ CellChangeTimes->{{3.583774066487896*^9, 3.583774083566358*^9}, {
+   3.583774126198497*^9, 3.583774152755973*^9}, {3.5837741828595657`*^9, 
+   3.583774227213629*^9}, {3.5837743008086767`*^9, 3.583774315456018*^9}, {
+   3.584121899028489*^9, 3.5841218994501247`*^9}, {3.584466209856192*^9, 
+   3.584466212576744*^9}, {3.584815088898299*^9, 3.584815227407817*^9}, 
+   3.584957678695613*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Data Source", "Section",
+ CellChangeTimes->{{3.584815407588365*^9, 3.584815410154971*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[GridBox[{
+     {
+      SetterBox[Dynamic[BLEAutoConnect`$dataSource], {
+       "exampledata"}, "\<\"Example Data\"\>"], 
+      SetterBox[Dynamic[BLEAutoConnect`$dataSource], {
+       "realdata"}, "\<\"Real Data\"\>"]}
+    },
+    BaselinePosition->{1, 1},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}],
+   Deployed->True],
+  SetterBar[
+   Dynamic[BLEAutoConnect`$dataSource], {
+   "exampledata" -> "Example Data", "realdata" -> "Real Data"}]]], "Output",
+ CellChangeTimes->{{3.584808109059799*^9, 3.5848081206044593`*^9}, 
+   3.584881168747941*^9, 3.584881203005786*^9, 3.584881314371982*^9, 
+   3.584881468995653*^9, 3.584881546689292*^9, 3.58488195971286*^9, 
+   3.584883285939927*^9, 3.5848836484650593`*^9, 3.584884378554841*^9, 
+   3.584884615212996*^9, {3.5849684672824697`*^9, 3.584968475709359*^9}, 
+   3.584968549820279*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Examples", "Section",
+ CellChangeTimes->{{3.5837749043934183`*^9, 3.5837749187114697`*^9}, 
+   3.584465886950679*^9, {3.584466027597624*^9, 3.584466041509131*^9}, {
+   3.5848143484776983`*^9, 3.5848143498845377`*^9}}],
+
+Cell[TextData[StyleBox["Discover nearby Bluetooth LE devices:", \
+"Subsection"]], "Subsection",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.},
+ CellChangeTimes->{{3.583776386440291*^9, 3.583776468511681*^9}, {
+  3.5837765307797937`*^9, 3.583776538530249*^9}, {3.5844659625501413`*^9, 
+  3.5844660036349297`*^9}, {3.584466904156393*^9, 3.584466920415419*^9}, {
+  3.5844686528322487`*^9, 3.584468681955134*^9}, {3.5849774643252163`*^9, 
+  3.584977468404698*^9}}],
+
+Cell[BoxData[
+ RowBox[{"devices", " ", "=", " ", 
+  RowBox[{"BLEDiscover", "[", "]"}]}]], "Input",
+ CellChangeTimes->{{3.5837721514266*^9, 3.583772152914741*^9}, {
+   3.5837722782357483`*^9, 3.583772299964897*^9}, 3.583772944004961*^9, 
+   3.583777651672126*^9, {3.584783221014791*^9, 3.5847832213144197`*^9}, 
+   3.5847889149072533`*^9, 3.584815320111253*^9, 3.584957688584154*^9}],
+
+Cell["\<\
+Connect to the first discovered device:\
+\>", "Subsection",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.},
+ CellChangeTimes->{{3.583776386440291*^9, 3.583776468511681*^9}, {
+  3.5837765307797937`*^9, 3.583776538530249*^9}, {3.5844659625501413`*^9, 
+  3.5844660036349297`*^9}, {3.584466889766522*^9, 3.584466891972805*^9}, {
+  3.584466932494781*^9, 3.584466982825944*^9}, {3.584711410521216*^9, 
+  3.58471141151888*^9}, {3.584797452137487*^9, 3.584797453136011*^9}, {
+  3.584977358326007*^9, 3.58497735926375*^9}, {3.5849774571580133`*^9, 
+  3.5849774589568653`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"BLEConnect", "[", 
+  RowBox[{"devices", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.584724625228361*^9, 3.584724631049436*^9}, {
+   3.584726650490583*^9, 3.5847266512148314`*^9}, 3.584957692464034*^9, {
+   3.584977370043439*^9, 3.584977377553398*^9}}],
+
+Cell["Obtain data:", "Subsection",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.},
+ CellChangeTimes->{{3.583776386440291*^9, 3.583776468511681*^9}, {
+  3.5837765307797937`*^9, 3.583776538530249*^9}, {3.5844659625501413`*^9, 
+  3.5844660036349297`*^9}, {3.584466889766522*^9, 3.584466891972805*^9}, {
+  3.584466932494781*^9, 3.584466982825944*^9}, {3.584711410521216*^9, 
+  3.58471141151888*^9}, {3.584797452137487*^9, 3.584797453136011*^9}, {
+  3.584814832345792*^9, 3.584814837034843*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Dynamic", "[", 
+  RowBox[{"BLEDeviceData", "[", 
+   RowBox[{"devices", "[", 
+    RowBox[{"[", "1", "]"}], "]"}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.584788972737741*^9, 3.5847889727398453`*^9}, {
+   3.5847891283248453`*^9, 3.584789162187022*^9}, 3.584791542275968*^9, {
+   3.584792449984321*^9, 3.584792458712659*^9}, {3.584792509606213*^9, 
+   3.584792597403*^9}, {3.584796038816648*^9, 3.584796134284953*^9}, {
+   3.584796462669162*^9, 3.58479647110788*^9}, {3.584806597272334*^9, 
+   3.5848065975641108`*^9}, 3.584806951190757*^9, {3.584813047105521*^9, 
+   3.5848131312778387`*^9}, 3.5848131621099377`*^9, {3.584813244418659*^9, 
+   3.5848132799584703`*^9}, {3.584813651624785*^9, 3.5848136541034927`*^9}, {
+   3.584813693166463*^9, 3.5848136952621937`*^9}, {3.584815766492527*^9, 
+   3.584815808809342*^9}, {3.584881439188181*^9, 3.5848814408648987`*^9}, {
+   3.584884359736454*^9, 3.584884366752178*^9}, 3.584884546543921*^9, 
+   3.584957695952221*^9}],
+
+Cell["Disconnect all devices:", "Subsection",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.},
+ CellChangeTimes->{{3.583776386440291*^9, 3.583776468511681*^9}, {
+  3.5837765307797937`*^9, 3.583776538530249*^9}, {3.5844659625501413`*^9, 
+  3.5844660036349297`*^9}, {3.584466889766522*^9, 3.584466891972805*^9}, {
+  3.584466932494781*^9, 3.584466982825944*^9}, {3.584711410521216*^9, 
+  3.58471141151888*^9}, {3.584797452137487*^9, 3.584797453136011*^9}, {
+  3.584884440917691*^9, 3.5848844430442457`*^9}, {3.5849774822684603`*^9, 
+  3.584977483668149*^9}}],
+
+Cell[BoxData[
+ RowBox[{"BLEDisconnectDevice", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.584724625228361*^9, 3.584724631049436*^9}, {
+   3.584726650490583*^9, 3.5847266512148314`*^9}, {3.5848844485729303`*^9, 
+   3.584884457444687*^9}, 3.584957699215797*^9}]
+}, Open  ]]
+}, Open  ]]
+},
+ScreenStyleEnvironment->"Working",
+WindowSize->{1089, 732},
+WindowMargins->{{Automatic, 67}, {Automatic, 1}},
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
+2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 299, 4, 92, "Title"],
+Cell[881, 28, 180, 4, 51, "Subtitle"],
+Cell[CellGroupData[{
+Cell[1086, 36, 96, 1, 80, "Section"],
+Cell[1185, 39, 374, 10, 49, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1596, 54, 111, 1, 80, "Section"],
+Cell[CellGroupData[{
+Cell[1732, 59, 201, 3, 30, "Text",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.}],
+Cell[1936, 64, 335, 9, 46, "Input",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.},
+ InitializationCell->True]
+}, Closed]],
+Cell[2286, 76, 284, 4, 22, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2607, 85, 241, 3, 80, "Section"],
+Cell[CellGroupData[{
+Cell[2873, 92, 108, 1, 44, "Subsection"],
+Cell[CellGroupData[{
+Cell[3006, 97, 392, 7, 28, "Item"],
+Cell[3401, 106, 631, 10, 28, "Item"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4081, 122, 191, 2, 44, "Subsection"],
+Cell[CellGroupData[{
+Cell[4297, 128, 153, 2, 28, "Item"],
+Cell[4453, 132, 219, 3, 28, "Item"],
+Cell[4675, 137, 438, 8, 28, "Item"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5174, 152, 100, 1, 80, "Section"],
+Cell[CellGroupData[{
+Cell[5299, 157, 232, 3, 44, "Subsection"],
+Cell[CellGroupData[{
+Cell[5556, 164, 346, 7, 29, "Item"],
+Cell[5905, 173, 391, 8, 29, "Item"],
+Cell[6299, 183, 524, 9, 29, "Item"],
+Cell[6826, 194, 559, 10, 29, "Item"],
+Cell[7388, 206, 628, 12, 29, "Item"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8077, 225, 96, 1, 80, "Section"],
+Cell[8176, 228, 1097, 26, 41, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9310, 259, 223, 3, 80, "Section"],
+Cell[9536, 264, 466, 7, 44, "Subsection",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.}],
+Cell[10005, 273, 382, 6, 28, "Input"],
+Cell[10390, 281, 582, 10, 44, "Subsection",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.}],
+Cell[10975, 293, 329, 6, 28, "Input"],
+Cell[11307, 301, 495, 7, 44, "Subsection",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.}],
+Cell[11805, 310, 992, 16, 28, "Input"],
+Cell[12800, 328, 559, 8, 44, "Subsection",
+ CellGroupingRules->{GroupTogetherGrouping, 10000.}],
+Cell[13362, 338, 259, 4, 28, "Input"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
